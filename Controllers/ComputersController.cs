@@ -63,12 +63,13 @@ namespace pcman.Controllers
             var pc = await _dbContext.Computers.Where(c => c.Id == computer.Id).SingleOrDefaultAsync();
             if (pc == null)
                 return BadRequest("Invalid Computer Id");
+            pc.Name = computer.Name.Trim();
             pc.Ram = computer.Ram;
-            pc.Motherboard = computer.Motherboard;
-            pc.Monitor = computer.Monitor;
-            pc.Cpu = computer.Cpu;
-            pc.Psu = computer.Psu;
-            pc.Description = computer.Description;
+            pc.Motherboard = computer.Motherboard.Trim();
+            pc.Monitor = computer.Monitor.Trim();
+            pc.Cpu = computer.Cpu.Trim();
+            pc.Psu = computer.Psu.Trim();
+            pc.Description = computer.Description.Trim();
 
             _dbContext.Computers.Update(pc);
             if (await _dbContext.SaveChangesAsync() > 0)
